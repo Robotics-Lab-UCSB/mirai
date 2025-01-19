@@ -4,6 +4,11 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    treefmt-nix = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     crane.url = "github:ipetkov/crane";
 
     fenix = {
@@ -28,6 +33,7 @@
       fenix,
       flake-utils,
       advisory-db,
+      treefmt-nix,
       ...
     }:
     flake-utils.lib.eachDefaultSystem (
@@ -66,6 +72,8 @@
           ]
         );
 
+        treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
+
         # Build *just* the cargo dependencies, so we can reuse
         # all of that work (e.g. via cachix) when running in CI
         cargoArtifacts = craneLib.buildDepsOnly commonArgs;
@@ -83,6 +91,8 @@
         checks = {
           # Build the crate as part of `nix flake check` for convenience
           inherit my-crate;
+
+          formatting = treefmtEval.config.build.check self;
 
           # Run clippy (and deny all warnings) on the crate source,
           # again, reusing the dependency artifacts from above.
@@ -139,6 +149,8 @@
             }
           );
         };
+
+        formatter = treefmtEval.config.build.wrapper;
 
         packages =
           {
