@@ -641,6 +641,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "mirai"
+version = "0.1.0"
+dependencies = [
+ "axum 0.8.1",
+ "console-subscriber",
+ "tokio",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "nom"
 version = "7.1.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -776,17 +787,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cc2f1e56baa61e93533aebc21af4d2134b70f66275e0fcdf3cbe43d77ff7e8fc"
 dependencies = [
  "prost",
-]
-
-[[package]]
-name = "quick-start"
-version = "0.1.0"
-dependencies = [
- "axum 0.8.1",
- "console-subscriber",
- "tokio",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
