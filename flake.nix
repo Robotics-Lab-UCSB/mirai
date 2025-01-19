@@ -169,6 +169,7 @@
             rustfmt
             clippy
             taplo
+            tokio-console
           ];
         };
       }

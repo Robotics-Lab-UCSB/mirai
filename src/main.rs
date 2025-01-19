@@ -2,6 +2,8 @@ use axum::{routing::get, Router};
 
 #[tokio::main]
 async fn main() {
+    console_subscriber::init();
+
     // build our application with a single route
     let app = Router::new().route("/", get(|| async { "Hello, World!" }));
 
