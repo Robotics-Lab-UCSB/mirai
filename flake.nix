@@ -11,12 +11,6 @@
 
     crane.url = "github:ipetkov/crane";
 
-    fenix = {
-      url = "github:nix-community/fenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.rust-analyzer-src.follows = "";
-    };
-
     flake-utils.url = "github:numtide/flake-utils";
 
     advisory-db = {
@@ -30,7 +24,6 @@
       self,
       nixpkgs,
       crane,
-      fenix,
       flake-utils,
       advisory-db,
       treefmt-nix,
@@ -63,14 +56,6 @@
           # Additional environment variables can be set directly
           # MY_CUSTOM_VAR = "some value";
         };
-
-        craneLibLLvmTools = craneLib.overrideToolchain (
-          fenix.packages.${system}.complete.withComponents [
-            "cargo"
-            "llvm-tools"
-            "rustc"
-          ]
-        );
 
         treefmtEval = treefmt-nix.lib.evalModule pkgs ./treefmt.nix;
 
@@ -157,7 +142,7 @@
             default = my-crate;
           }
           // lib.optionalAttrs (!pkgs.stdenv.isDarwin) {
-            my-crate-llvm-coverage = craneLibLLvmTools.cargoLlvmCov (
+            my-crate-llvm-coverage = craneLib.cargoLlvmCov (
               commonArgs
               // {
                 inherit cargoArtifacts;
@@ -179,8 +164,11 @@
           # MY_CUSTOM_DEVELOPMENT_VAR = "something else";
 
           # Extra inputs can be added here; cargo and rustc are provided by default.
-          packages = [
-            # pkgs.ripgrep
+          packages = with pkgs; [
+            rust-analyzer
+            rustfmt
+            clippy
+            taplo
           ];
         };
       }

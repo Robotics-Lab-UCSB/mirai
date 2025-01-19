@@ -1,2 +1,10 @@
 [licenses]
-allow = ["MIT"]
+allow = [
+  "MIT",
+  "BSL-1.0",
+  "BSD-3-Clause",
+  "Apache-2.0 WITH LLVM-exception",
+  "Apache-2.0",
+  "0BSD",
+  "Unicode-3.0",
+]
