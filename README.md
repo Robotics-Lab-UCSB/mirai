@@ -6,6 +6,8 @@ At this time we do not admit GPL code into the dependencies.
 
 In order to push code, you must create a new branch and send a PR where all
 checks pass. Any pushes directly to `main` will be rejected immediately.
+Additionally, all checks must pass before your PR can be merged. Please run
+`nix flake check` to run all checks and fix any failing ones that may occur.
 
 We recommend you work in a personal development branch or fork of the
 repository to avoid losing work.
