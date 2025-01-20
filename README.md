@@ -4,6 +4,12 @@ This is the websockets backend for the virtual robotics lab, built on Tokio's
 `axum`. The source code is licensed under a permissive Berkeley-style license.
 At this time we do not admit GPL code into the dependencies.
 
+In order to push code, you must create a new branch and send a PR where all
+checks pass. Any pushes directly to `main` will be rejected immediately.
+
+We recommend you work in a personal development branch or fork of the
+repository to avoid losing work.
+
 ## Hacking
 
 ### Using Nix
